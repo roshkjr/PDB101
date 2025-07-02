@@ -1,0 +1,72 @@
+[
+  {
+    "objectID": "core.html",
+    "href": "core.html",
+    "title": "core",
+    "section": "",
+    "text": "source\n\nfoo\n\n foo ()",
+    "crumbs": [
+      "core"
+    ]
+  },
+  {
+    "objectID": "interactions.html",
+    "href": "interactions.html",
+    "title": "interactions",
+    "section": "",
+    "text": "Note Install chimerax before running",
+    "crumbs": [
+      "interactions"
+    ]
+  },
+  {
+    "objectID": "interactions.html#add-hydrogen-using-chimerax",
+    "href": "interactions.html#add-hydrogen-using-chimerax",
+    "title": "interactions",
+    "section": "Add hydrogen using ChimeraX",
+    "text": "Add hydrogen using ChimeraX\n\nimport os\nimport logging\nimport subprocess\n\n\ndef protonate_structure(structure: str, out_dir:str) -&gt; tuple[bool, str]:\n        \"\"\"Uses ChimeraX to add hydrogens to the input structure.\n        The command being used is `addh hbond true`.\n\n        Args:\n            structure: Path to the input structure\n            out_dir: Directory where the protonated structure will be saved\n\n        Returns:\n            A tuple (success, protonated), where success indicates whether the protonation\n            was succcessful or not , and protonated is the path to protonated structure\n        \"\"\"\n        logging.info(\"Protonation started.\")\n\n        chimerax_success = False\n        protonated_cif = os.path.join(\n            out_dir, f'{os.path.basename(structure).split(\".\")[0]}_h.cif'\n        )\n\n        cmd_file = os.path.join(out_dir, \"chimera_config.cxc\")\n        structure = os.path.realpath(structure)\n        protonated_cif = os.path.realpath(protonated_cif)\n\n        with open(cmd_file, \"w\") as f:\n            f.write(\n                f\"\"\"\n                open {structure}\n                addh hbond true\n                save {protonated_cif} format mmcif\n                exit\n                \"\"\"\n            )\n        try:\n            subprocess.call(\n                [\"chimerax\", \"--nogui\", \"--cmd\", f\"open {cmd_file}\", \"--silent\"]\n            )\n            logging.info(\"Protonation finished.\")\n        except Exception:\n            return (chimerax_success, protonated_cif)\n\n        if not os.path.isfile(protonated_cif):\n            return (chimerax_success, protonated_cif)\n\n        return (chimerax_success, protonated_cif)",
+    "crumbs": [
+      "interactions"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "PDB101",
+    "section": "",
+    "text": "This file will become your README and also the index of your documentation.",
+    "crumbs": [
+      "PDB101"
+    ]
+  },
+  {
+    "objectID": "index.html#developer-guide",
+    "href": "index.html#developer-guide",
+    "title": "PDB101",
+    "section": "Developer Guide",
+    "text": "Developer Guide\nIf you are new to using nbdev here are some useful pointers to get you started.\n\nInstall PDB101 in Development mode\n# make sure PDB101 package is installed in development mode\n$ pip install -e .\n\n# make changes under nbs/ directory\n# ...\n\n# compile to have changes apply to PDB101\n$ nbdev_prepare",
+    "crumbs": [
+      "PDB101"
+    ]
+  },
+  {
+    "objectID": "index.html#usage",
+    "href": "index.html#usage",
+    "title": "PDB101",
+    "section": "Usage",
+    "text": "Usage\n\nInstallation\nInstall latest from the GitHub repository:\n$ pip install git+https://github.com/roshkjr/PDB101.git\nor from conda\n$ conda install -c roshkjr PDB101\nor from pypi\n$ pip install PDB101\n\n\nDocumentation\nDocumentation can be found hosted on this GitHub repository’s pages. Additionally you can find package manager specific guidelines on conda and pypi respectively.",
+    "crumbs": [
+      "PDB101"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "PDB101",
+    "section": "How to use",
+    "text": "How to use\nFill me in please! Don’t forget code examples:\n\n1+1\n\n2",
+    "crumbs": [
+      "PDB101"
+    ]
+  }
+]
