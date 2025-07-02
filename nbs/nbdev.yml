@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "PDB101"
+  site-url: "https://roshkjr.github.io/PDB101"
+  description: "A collection of resources pertaining to processing 3D structural data from the Protein Data Bank"
+  repo-branch: main
+  repo-url: "https://github.com/roshkjr/PDB101"
